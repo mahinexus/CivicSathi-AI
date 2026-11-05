@@ -1,0 +1,5 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+body { @apply bg-[#f3f7fd] text-[#0f2147]; font-family: 'Segoe UI', system-ui, sans-serif; }
+.hero-bg { background: linear-gradient(110deg, #eaf3ff, #dcebff 60%, #fff); }

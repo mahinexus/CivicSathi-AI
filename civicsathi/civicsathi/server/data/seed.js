@@ -1,0 +1,19 @@
+import 'dotenv/config';
+import mongoose from 'mongoose';
+import Scheme from '../models/Scheme.js';
+
+const B = 1e10;
+const schemes = [
+  { name: 'PM Scholarship Scheme', nameHi: 'प्रधानमंत्री छात्रवृत्ति योजना', category: 'Scholarship', description: 'Financial aid for students from low-income families.', minAge: 16, maxAge: 30, maxIncome: 800000, occupations: ['student'], documents: ['Aadhaar card', 'Income certificate', 'Marksheet', 'Bank passbook'], steps: ['Register on the National Scholarship Portal', 'Fill the application form', 'Upload documents', 'Submit and note your application ID', 'Get it verified by your institute'], officialUrl: 'https://scholarships.gov.in' },
+  { name: 'PM Kisan Samman Nidhi', nameHi: 'पीएम किसान सम्मान निधि', category: 'Farmers', description: 'Rs 6,000 per year income support for farmer families.', minAge: 18, maxAge: 99, maxIncome: B, occupations: ['farmer'], documents: ['Aadhaar card', 'Land records', 'Bank passbook'], steps: ['Open the PM-KISAN portal', 'Choose New Farmer Registration', 'Enter Aadhaar and land details', 'Submit for state verification'], officialUrl: 'https://pmkisan.gov.in' },
+  { name: 'Ayushman Bharat PM-JAY', nameHi: 'आयुष्मान भारत', category: 'Health', description: 'Health cover up to Rs 5 lakh per family per year.', minAge: 0, maxAge: 99, maxIncome: 300000, occupations: ['any'], documents: ['Aadhaar card', 'Ration card', 'Income certificate'], steps: ['Check your name on the PM-JAY beneficiary list', 'Visit an Ayushman Mitra at an empanelled hospital or CSC', 'Complete e-KYC', 'Collect your Ayushman card'], officialUrl: 'https://pmjay.gov.in' },
+  { name: 'PM Awas Yojana', nameHi: 'प्रधानमंत्री आवास योजना', category: 'Housing', description: 'Support to build or buy a pucca house.', minAge: 18, maxAge: 99, maxIncome: 1800000, occupations: ['any'], documents: ['Aadhaar card', 'Income certificate', 'Land or property papers', 'Bank passbook'], steps: ['Check eligibility on the PMAY portal', 'Apply online or through a CSC', 'Submit income and property documents', 'Track the application until sanction'], officialUrl: 'https://pmaymis.gov.in' },
+  { name: 'Mudra Loan (PMMY)', nameHi: 'मुद्रा ऋण योजना', category: 'Business', description: 'Collateral-free loans up to Rs 10 lakh for small businesses.', minAge: 18, maxAge: 65, maxIncome: B, occupations: ['business', 'self-employed'], documents: ['Aadhaar card', 'PAN card', 'Business plan', 'Address proof'], steps: ['Choose Shishu, Kishor or Tarun category', 'Apply at a bank or on the Udyamimitra portal', 'Submit the business plan and KYC', 'Collect the sanctioned loan'], officialUrl: 'https://mudra.org.in' },
+  { name: 'Beti Bachao Beti Padhao', nameHi: 'बेटी बचाओ बेटी पढ़ाओ', category: 'Women & Girls', description: 'Education and welfare support for girl children.', minAge: 0, maxAge: 21, maxIncome: B, occupations: ['any'], gender: 'female', documents: ['Birth certificate', 'Aadhaar card', 'School certificate'], steps: ['Contact your district Women & Child Development office', 'Submit the birth and school documents', 'Enrol the girl child in linked savings schemes'], officialUrl: 'https://wcd.gov.in' },
+  { name: 'Skill India (PMKVY)', nameHi: 'स्किल इंडिया', category: 'Skills', description: 'Free short-term skill training with certification.', minAge: 15, maxAge: 45, maxIncome: B, occupations: ['any'], documents: ['Aadhaar card', 'Education certificate', 'Bank passbook'], steps: ['Find a nearby training centre on the Skill India portal', 'Register and choose a course', 'Complete training and the assessment', 'Receive your certificate'], officialUrl: 'https://www.skillindiadigital.gov.in' },
+];
+await mongoose.connect(process.env.MONGO_URI);
+await Scheme.deleteMany({});
+await Scheme.insertMany(schemes);
+console.log(`Seeded ${schemes.length} schemes`);
+await mongoose.disconnect();
